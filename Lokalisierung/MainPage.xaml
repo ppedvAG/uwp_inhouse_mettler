@@ -1,0 +1,47 @@
+﻿<Page
+    x:Class="Lokalisierung.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Lokalisierung"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    RequestedTheme="Light"
+    mc:Ignorable="d"
+    Style="{ThemeResource mainPageStyle}">
+    <Page.Resources>
+        <x:Double x:Key="pageFontSize">40</x:Double>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="ExtraBold" />
+        </Style>
+    </Page.Resources>
+
+    <StackPanel>
+        <!-- {...} = Markup-Extension -->
+        <TextBlock FontSize="{StaticResource ResourceKey=pageFontSize}" Text="{StaticResource weclome_to_albstadt}" />
+        <CheckBox Background="Yellow" FontSize="{StaticResource ResourceKey=pageFontSize}" Content="{StaticResource visitor}" />
+        <Button FontSize="{StaticResource ResourceKey=pageFontSize}" Content="{StaticResource change_language}">
+            <Button.Flyout>
+                <MenuFlyout>
+                    <MenuFlyoutItem FontSize="{StaticResource pageFontSize}" Tag="Deutsch.xaml" Text="Deutsch" Click="Change_Language_Click"  />
+                    <MenuFlyoutItem FontSize="{StaticResource pageFontSize}" Tag="Englisch.xaml" Text="Enlisch" Click="Change_Language_Click" />
+                </MenuFlyout>
+            </Button.Flyout>
+        </Button>
+        <Button FontSize="{StaticResource ResourceKey=pageFontSize}" Style="{StaticResource specialButton}" Content="{StaticResource change_theme}" >
+            <Button.ContextFlyout>
+                <MenuFlyout>
+                    <MenuFlyoutItem FontSize="{StaticResource pageFontSize}" Text="Hell" Click="Hell_Click"  />
+                    <MenuFlyoutItem FontSize="{StaticResource pageFontSize}" Text="Dunkel" Click="Dunkel_Click" />
+                </MenuFlyout>
+            </Button.ContextFlyout>
+        </Button>
+        <ListBox>
+            <ListBoxItem>
+                <StaticResource ResourceKey="weclome_to_albstadt" />
+            </ListBoxItem>
+            <ListBoxItem>
+                <StaticResource ResourceKey="visitor" />
+            </ListBoxItem>
+        </ListBox>
+    </StackPanel>
+</Page>

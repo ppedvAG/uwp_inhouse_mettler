@@ -1,0 +1,9 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Lokalisierung">
+    <x:String x:Key="weclome_to_albstadt">Willkommen in Albstadt</x:String>
+    <x:String x:Key="visitor">Besucher</x:String>
+    <x:String x:Key="change_language">Sprache wechseln</x:String>
+    <x:String x:Key="change_theme">Theme wechseln</x:String>
+</ResourceDictionary>

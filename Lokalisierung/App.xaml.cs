@@ -7,7 +7,6 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -16,7 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace WerkzeugManager
+namespace Lokalisierung
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
@@ -60,8 +59,6 @@ namespace WerkzeugManager
                 Window.Current.Content = rootFrame;
             }
 
-            SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
-
             if (e.PrelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
@@ -75,18 +72,6 @@ namespace WerkzeugManager
                 Window.Current.Activate();
             }
         }
-
-        private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
-        {
-            if (MainPage.SubFrame.CanGoBack)
-            {
-                MainPage.SubFrame.GoBack();
-                MainPage.UpdateBackButton();
-                e.Handled = true;
-            }
-            e.Handled = true;
-        }
-
 
         /// <summary>
         /// Invoked when Navigation to a certain page fails
