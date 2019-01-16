@@ -1,0 +1,40 @@
+﻿<Page
+    x:Class="WerkzeugManager.EditPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WerkzeugManager"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Margin="10">
+        <!--Property-Elemente-->
+        <!--#region Grid Definitions -->
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="33*" />
+            <ColumnDefinition Width="66*" />
+        </Grid.ColumnDefinitions>
+        <!--#endregion-->
+
+        <TextBlock VerticalAlignment="Center">Name:</TextBlock>
+        <TextBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" MinWidth="100" x:Name="textName" />
+
+        <TextBlock Grid.Row="1" VerticalAlignment="Center">Anzahl:</TextBlock>
+        <Slider Grid.Row="1" Grid.Column="1" StepFrequency="1" VerticalAlignment="Center" Minimum="1" Maximum="100" x:Name="sliderAnz" />
+
+        <TextBlock Grid.Row="2" VerticalAlignment="Center">Aus Metall:</TextBlock>
+        <ToggleSwitch Grid.Row="2" Grid.Column="1" OnContent="Ja" OffContent="Nein" x:Name="toggleMetall" />
+
+        <TextBlock Grid.Row="3" VerticalAlignment="Center">Gewindeart:</TextBlock>
+        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="cbGewindeart" VerticalAlignment="Center" />
+
+        <Button Click="Button_Click" x:Name="button" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center">Erstellen</Button>
+    </Grid>
+</Page>

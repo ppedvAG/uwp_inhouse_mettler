@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +26,29 @@ namespace Hello_World
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private void Main_Button_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Neuer Button erstellen mit Click-Event, danach wird Hello World angezeigt
+            if(this.Content is Grid grid)
+            {
+                Button newButton = new Button();
+                newButton.HorizontalAlignment = HorizontalAlignment.Right;
+                newButton.VerticalAlignment = VerticalAlignment.Top;
+                newButton.Content = "Hello World Button";
+                newButton.Margin = new Thickness(10);
+                newButton.Click += NewButton_Click;
+          
+                grid.Children.Add(newButton);
+                //mainGrid.Children.Add(newButton);     
+
+            }
+        }
+
+        private async void NewButton_Click(object sender, RoutedEventArgs e)
+        {
+            await new MessageDialog("Hello World!").ShowAsync();
         }
     }
 }

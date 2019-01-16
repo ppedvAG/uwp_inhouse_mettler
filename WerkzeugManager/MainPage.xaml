@@ -1,0 +1,26 @@
+﻿<Page
+    x:Class="WerkzeugManager.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WerkzeugManager"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <RelativePanel Background="Green">
+        <TextBlock x:Name="tbMain" FontSize="40" HorizontalAlignment="Center"
+                   RelativePanel.AlignRightWithPanel="True" 
+                   RelativePanel.AlignLeftWithPanel="True">WerkzeugManager</TextBlock>
+        <StackPanel x:Name="stackpanel" Background="Blue" 
+                    RelativePanel.Below="tbMain" 
+                    RelativePanel.AlignBottomWithPanel="True" >
+            <Button Click="Liste_Click_Button" Margin="10" Background="Red" HorizontalAlignment="Stretch">Liste</Button>
+            <Button Click="Neu_Click_Button" Margin="10" Background="Red" HorizontalAlignment="Stretch">Neu</Button>
+        </StackPanel>
+        <Frame x:Name="subFrame" Background="Yellow"
+               RelativePanel.RightOf="stackpanel" 
+               RelativePanel.AlignRightWithPanel="True" 
+               RelativePanel.Below="tbMain" 
+               RelativePanel.AlignBottomWithPanel="True" />
+    </RelativePanel>
+</Page>
