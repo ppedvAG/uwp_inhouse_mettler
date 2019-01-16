@@ -1,0 +1,29 @@
+﻿<Page
+    x:Class="PersonenManager.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonenManager"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="Yellow">
+    <Grid Background="White">
+        <StackPanel>
+            <TextBlock>
+            Es wurde ingesamt <Run Text="{x:Bind Clicks,Mode=OneWay}" /> Mal geklickt!
+            </TextBlock>
+            <TextBlock Text="{Binding Path=Count}" />
+            <ListBox x:Name="listbox" ItemsSource="{x:Bind Personen,Mode=OneWay}" ItemTemplate="{StaticResource personenTemplate}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+            <Button Click="Button_Click">Refresh</Button>
+            <TextBlock Text="{Binding Path=[0].Name,Mode=OneWay}"  />
+            <!--<ContentPresenter Content="{Binding ElementName=listbox,Path=SelectedItem,Mode=OneWay}"
+                              ContentTemplate="{StaticResource personenTemplate}" />-->
+        </StackPanel>
+    </Grid>
+</Page>

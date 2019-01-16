@@ -1,0 +1,28 @@
+﻿<Page
+    x:Class="WetterApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WetterApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <StackPanel>
+        <ListBox ItemsSource="{x:Bind Staedte,Mode=OneWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="x:String">
+                    <Border BorderBrush="Black" BorderThickness="2">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox MinWidth="100" Text="{x:Bind Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                            <Button  Click="Delete_Click">Löschen</Button>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Orientation="Horizontal" Margin="20">
+            <TextBox Text="{x:Bind NeueStadt,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="200" />
+            <Button Margin="10 0 0 0" Click="Button_Click">Neu</Button>
+        </StackPanel>
+    </StackPanel>
+</Page>
