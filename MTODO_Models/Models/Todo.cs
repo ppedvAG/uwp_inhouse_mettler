@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace MTODO_Models.Models
 {
     public class Todo : ModelBase
     {
+        public static int Last_Id = 0;
 
         private int _id;
         public int ID
@@ -29,6 +31,11 @@ namespace MTODO_Models.Models
         {
             get { return _dueDate; }
             set { SetValue(ref _dueDate, value); }
+        }
+
+        public Todo()
+        {
+            ID = Interlocked.Increment(ref Last_Id);
         }
 
         //TODO: Property für Bild/Datei anlegen
