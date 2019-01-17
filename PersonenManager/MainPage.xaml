@@ -20,7 +20,7 @@
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListBox>
-            <Button Click="Button_Click">Refresh</Button>
+            <Button PointerPressed="Button_PointerPressed"  Click="Button_Click">Refresh</Button>
             <TextBlock Text="{Binding Path=[0].Name,Mode=OneWay}"  />
             <!--<ContentPresenter Content="{Binding ElementName=listbox,Path=SelectedItem,Mode=OneWay}"
                               ContentTemplate="{StaticResource personenTemplate}" />-->

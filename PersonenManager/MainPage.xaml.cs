@@ -42,7 +42,9 @@ namespace PersonenManager
             b1.FontSize = 12;
             b1.SetValue(Button.FontSizeProperty, 12);
 
+           
             this.AddHandler(UIElement.PointerPressedEvent, new PointerEventHandler(ClickCounter), true);
+            
 
         }
 
@@ -80,5 +82,7 @@ namespace PersonenManager
         {
             this.Frame.Navigate(typeof(MainPage));
         }
+
+       
     }
 }
