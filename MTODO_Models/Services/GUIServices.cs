@@ -4,9 +4,9 @@ using System.Text;
 
 namespace MTODO_Models.Services
 {
-    public class GUIServices
+    public static class GUIServices
     {
-
+        public static INavigationService Navigation { get; set; }
     }
 
     public interface INavigationService

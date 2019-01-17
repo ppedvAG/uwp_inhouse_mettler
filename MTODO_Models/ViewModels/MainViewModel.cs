@@ -21,12 +21,12 @@ namespace MTODO_Models.ViewModels
         public void GoToTodosView()
         {
             //TODO:
-            
+            GUIServices.Navigation.NavigateTo(new TodosViewModel());
         }
        
         public void GoToBooksView()
         {
-
+            GUIServices.Navigation.NavigateTo(new BooksViewModel());
         }
     }
 }
