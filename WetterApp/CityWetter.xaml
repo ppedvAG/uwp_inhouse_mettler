@@ -9,6 +9,19 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
         <TextBlock Text="{x:Bind Stadt,Mode=OneWay}"  />
+        <StackPanel Grid.Column="1">
+            <TextBlock><Run Text="{x:Bind Temperatur,Mode=OneWay}" />°C</TextBlock>
+            <TextBlock Text="{x:Bind Beschreibung,Mode=OneWay}" />
+        </StackPanel>
+        <Image Source="{x:Bind IconUrl,Mode=OneWay}" Grid.Column="2" HorizontalAlignment="Stretch" 
+               VerticalAlignment="Stretch" Stretch="UniformToFill" />
+
     </Grid>
 </UserControl>

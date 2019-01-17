@@ -13,7 +13,7 @@
                 <DataTemplate x:DataType="x:String">
                     <Border BorderBrush="Black" BorderThickness="2">
                         <StackPanel Orientation="Horizontal">
-                            <TextBox MinWidth="100" Text="{x:Bind Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox MinWidth="100" Text="{x:Bind Mode=TwoWay}" />
                             <Button  Click="Delete_Click">Löschen</Button>
                         </StackPanel>
                     </Border>

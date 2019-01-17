@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -44,10 +45,10 @@ namespace WetterApp
             }
         }
 
-        private string _error = string.Empty;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private string _error = string.Empty;
         public string Error
         {
             get { return _error; }
@@ -95,12 +96,14 @@ namespace WetterApp
         {
             try
             {
+
+
                 HttpClient client = new HttpClient();
                 string jsonResult = await client.GetStringAsync($"https://api.openweathermap.org/data/2.5/weather?q={Stadt}&units=metric&appid=84d84c7b399d88e7f4e4688facc2498e");
-                var apiresult = JsonConvert.DeserializeObject<WetterAPIResult>(jsonResult);
-                Temperatur = apiresult.main.temp_min;
-                IconUrl = apiresult.weather[0].IconUrl;
-                Beschreibung = apiresult.weather[0].description;
+            var apiresult = JsonConvert.DeserializeObject<WetterAPIResult>(jsonResult);
+            Temperatur = apiresult.main.temp_min;
+            IconUrl = apiresult.weather[0].IconUrl;
+            Beschreibung = apiresult.weather[0].description;
             }
             catch (Exception)
             {
