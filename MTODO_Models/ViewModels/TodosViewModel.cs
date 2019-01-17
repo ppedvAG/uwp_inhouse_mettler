@@ -29,6 +29,12 @@ namespace MTODO_Models.ViewModels
             TodoListe = TodoManager.Todos;
         }
 
+        public TodosViewModel(Todo neuesTodo) : this()
+        {
+            TodoListe.Add(neuesTodo);
+            CurrentTodo = neuesTodo;
+        }
+
         public void AddTodo()
         {
             TodoListe.Add(new Todo());

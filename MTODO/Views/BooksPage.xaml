@@ -5,9 +5,36 @@
     xmlns:local="using:MTODO.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:MTODO_Models.Models"
     mc:Ignorable="d"
+    x:Name="page"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         
+        <StackPanel Orientation="Horizontal">
+            <TextBox Text="{x:Bind Model.SearchTerm,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" />
+            <Button Command="{x:Bind Model.SearchBookCommand,Mode=OneWay}">Suche</Button>
+        </StackPanel>
+        <GridView ItemsSource="{x:Bind Model.Books,Mode=OneWay}" Grid.Row="1">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="models:Book">
+                    <Image Source="{x:Bind volumeInfo.imageLinks.smallThumbnail,Mode=OneWay}" Height="200">
+                        <Image.ContextFlyout>
+                            <MenuFlyout>
+                                <!-- Variante mit Code-Behind: <MenuFlyoutItem 
+                                    Click="MenuFlyoutItem_Click" />-->
+                                <MenuFlyoutItem 
+                                    CommandParameter="{x:Bind}"
+                                    Command="{Binding ElementName=page,Path=Model.AddBookAsTodoCommand}" />
+                            </MenuFlyout>
+                        </Image.ContextFlyout>
+                    </Image>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
     </Grid>
 </Page>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MTODO_Models.Models;
+using MTODO_Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +24,27 @@ namespace MTODO.Views
     /// </summary>
     public sealed partial class BooksPage : Page
     {
+        public BooksViewModel Model { get; set; }
+
         public BooksPage()
         {
             this.InitializeComponent();
+
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Model = e.Parameter as BooksViewModel;
+
+            base.OnNavigatedTo(e);
+        }
+
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuFlyoutItem item && item.DataContext is Book book)
+            {
+                Model.AddBookAsTodoCommand.Execute(book);
+            }
         }
     }
 }

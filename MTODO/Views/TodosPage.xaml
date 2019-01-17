@@ -9,7 +9,8 @@
     xmlns:models="using:MTODO_Models.Models"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <controls:MasterDetailsView ItemsSource="{x:Bind Model.TodoListe,Mode=OneWay}">
+    <controls:MasterDetailsView SelectedItem="{x:Bind Model.CurrentTodo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                ItemsSource="{x:Bind Model.TodoListe,Mode=OneWay}">
         <controls:MasterDetailsView.ItemTemplate>
             <DataTemplate x:DataType="models:Todo">
                 <TextBlock Text="{x:Bind Title,Mode=OneWay}" />
