@@ -81,7 +81,7 @@ namespace WetterApp
             }
         }
 
-        private string  _iconUrl;
+        private string _iconUrl;
         public string IconUrl
         {
             get { return _iconUrl; }
@@ -96,14 +96,12 @@ namespace WetterApp
         {
             try
             {
-
-
                 HttpClient client = new HttpClient();
                 string jsonResult = await client.GetStringAsync($"https://api.openweathermap.org/data/2.5/weather?q={Stadt}&units=metric&appid=84d84c7b399d88e7f4e4688facc2498e");
-            var apiresult = JsonConvert.DeserializeObject<WetterAPIResult>(jsonResult);
-            Temperatur = apiresult.main.temp_min;
-            IconUrl = apiresult.weather[0].IconUrl;
-            Beschreibung = apiresult.weather[0].description;
+                var apiresult = JsonConvert.DeserializeObject<WetterAPIResult>(jsonResult);
+                Temperatur = apiresult.main.temp_min;
+                IconUrl = apiresult.weather[0].IconUrl;
+                Beschreibung = apiresult.weather[0].description;
             }
             catch (Exception)
             {

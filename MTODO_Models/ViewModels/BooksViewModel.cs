@@ -2,7 +2,7 @@
 
 namespace MTODO_Models.ViewModels
 {
-    internal class BooksViewModel : IViewModel
+    public class BooksViewModel : IViewModel
     {
     }
 }

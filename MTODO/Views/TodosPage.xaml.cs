@@ -23,14 +23,12 @@ namespace MTODO.Views
     /// </summary>
     public sealed partial class TodosPage : Page
     {
-
         public TodosViewModel Model { get; set; }
 
         public TodosPage()
         {
             this.InitializeComponent();
         }
-
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

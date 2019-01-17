@@ -11,7 +11,10 @@ namespace MTODO_Models.Models
 
         static TodoManager()
         {
-            Todos = new ObservableCollection<Todo>();
+            Todos = new ObservableCollection<Todo>()
+            {
+                new Todo() { Title="Test",  DueDate = DateTime.Now.AddDays(1)}
+            };
             //TODO: Aus dem Speicher laden
         }
     }

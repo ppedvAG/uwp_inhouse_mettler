@@ -5,10 +5,24 @@
     xmlns:local="using:MTODO.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:models="using:MTODO_Models.Models"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Grid>
-
-    </Grid>
+    <controls:MasterDetailsView ItemsSource="{x:Bind Model.TodoListe,Mode=OneWay}">
+        <controls:MasterDetailsView.ItemTemplate>
+            <DataTemplate x:DataType="models:Todo">
+                <TextBlock Text="{x:Bind Title,Mode=OneWay}" />
+            </DataTemplate>
+        </controls:MasterDetailsView.ItemTemplate>
+        <controls:MasterDetailsView.DetailsTemplate>
+            <DataTemplate x:DataType="models:Todo">
+                <StackPanel>
+                    <TextBox Text="{x:Bind Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                    <DatePicker Date="{x:Bind DueDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource dateConverter}}" />
+                    <!--TODO: Bild-->
+                </StackPanel>
+            </DataTemplate>
+        </controls:MasterDetailsView.DetailsTemplate>
+    </controls:MasterDetailsView>
 </Page>

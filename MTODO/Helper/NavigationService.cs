@@ -12,7 +12,6 @@ namespace MTODO.Helper
 {
     public class NavigationService : INavigationService
     {
-
         public Frame RootFrame { get; set; }
 
         public void NavigateTo(IViewModel model)
@@ -20,6 +19,10 @@ namespace MTODO.Helper
             if(model is TodosViewModel)
             {
                 RootFrame.Navigate(typeof(TodosPage), model);
+            }
+            else if(model is BooksViewModel)
+            {
+                RootFrame.Navigate(typeof(BooksPage), model);
             }
         }
 

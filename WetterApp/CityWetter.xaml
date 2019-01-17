@@ -20,8 +20,8 @@
             <TextBlock><Run Text="{x:Bind Temperatur,Mode=OneWay}" />°C</TextBlock>
             <TextBlock Text="{x:Bind Beschreibung,Mode=OneWay}" />
         </StackPanel>
-        <Image Source="{x:Bind IconUrl,Mode=OneWay}" Grid.Column="2" HorizontalAlignment="Stretch" 
-               VerticalAlignment="Stretch" Stretch="UniformToFill" />
+        <!--<Image Source="{x:Bind IconUrl,Mode=OneWay}" Grid.Column="2" HorizontalAlignment="Stretch" 
+               VerticalAlignment="Stretch" Stretch="UniformToFill" />-->
 
     </Grid>
 </UserControl>

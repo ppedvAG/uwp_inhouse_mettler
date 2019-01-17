@@ -8,7 +8,11 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-
-    </Grid>
+    <NavigationView>
+        <NavigationView.MenuItems>
+            <NavigationViewItem Tapped="NavigationViewItem_Tapped" Icon="List" Content="ToDos" Tag="Todo" />
+            <NavigationViewItem Tapped="NavigationViewItem_Tapped" Icon="Add" Content="Bücher" Tag="Book" />
+        </NavigationView.MenuItems>
+        <Frame x:Name="rootFrame" />
+    </NavigationView>
 </Page>

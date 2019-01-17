@@ -42,6 +42,7 @@ namespace WetterApp
             this.InitializeComponent();
             //notwendig für normales Binding (nicht x:Bind)
             this.DataContext = Staedte;
+            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MTODO.Helper;
+using MTODO_Models.Services;
+using MTODO_Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +25,27 @@ namespace MTODO.Views
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public MainViewModel Model { get; set; } = new MainViewModel();
+
         public MainPage()
         {
             this.InitializeComponent();
+            GUIServices.Navigation = new NavigationService(rootFrame);
+        }
+
+        private void NavigationViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (sender is NavigationViewItem item)
+            {
+                if (item.Tag.ToString() == "Book")
+                {
+                    Model.GoToBooksViewCommand.Execute(null);
+                }
+                else if (item.Tag.ToString() == "Todo")
+                {
+                    Model.GoToTodosViewCommand.Execute(null);
+                }
+            }
         }
     }
 }
