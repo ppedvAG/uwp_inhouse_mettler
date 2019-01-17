@@ -42,10 +42,28 @@ namespace WetterApp
             }
         }
 
-        public void LadeWetter()
+        private string _error = string.Empty;
+
+        public string Error
         {
-            HttpClient client = new HttpClient();
-            client.GetStringAsync($"https://api.openweathermap.org/data/2.5/weather?q={Stadt}&units=metric&appid=84d84c7b399d88e7f4e4688facc2498e");
+            get { return _error; }
+            set { _error = value; }
+        }
+
+
+
+        public async void LadeWetter()
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                string jsonResult = await client.GetStringAsync($"https://api.openweathermap.org/data/2.5/weather?q={Stadt}&units=metric&appid=84d84c7b399d88e7f4e4688facc2498e");
+
+            }
+            catch (Exception)
+            {
+                Error = "Das Wetter für diese Stadt konnte nicht ermittelt werden!";
+            }
         }
 
         public CityWetter()
