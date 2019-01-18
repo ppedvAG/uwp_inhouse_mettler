@@ -3,31 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
 namespace MTODO.Helper
 {
-    public class DateTimeToDateTimeOffsetConverter : IValueConverter
+    public class StringIsEmptyConverter : IValueConverter
     {
-        //DateTime ->  DateTimeOffset
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if(value is DateTime date)
+            if(value is string str && string.IsNullOrWhiteSpace(str))
             {
-                return (DateTimeOffset)date;
+                return true;
             }
-            return value;
+            return false;
         }
 
-        //DateTimeOffset -> DateTime
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            if(value is DateTimeOffset doffset)
-            {
-                return doffset.DateTime;
-            }
-            return value;
+            throw new NotImplementedException();
         }
     }
 }

@@ -16,13 +16,13 @@
         </Grid.RowDefinitions>
         
         <StackPanel Orientation="Horizontal">
-            <TextBox Text="{x:Bind Model.SearchTerm,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" />
+            <TextBox Background="Blue" Text="{x:Bind Model.SearchTerm,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" />
             <Button Command="{x:Bind Model.SearchBookCommand,Mode=OneWay}">Suche</Button>
         </StackPanel>
         <GridView ItemsSource="{x:Bind Model.Books,Mode=OneWay}" Grid.Row="1">
             <GridView.ItemTemplate>
-                <DataTemplate x:DataType="models:Book">
-                    <Image Source="{x:Bind volumeInfo.imageLinks.smallThumbnail,Mode=OneWay}" Height="200">
+                <DataTemplate   x:DataType="models:Book">
+                    <Image x:Name="image" Source="{x:Bind volumeInfo.imageLinks.smallThumbnail,Mode=OneWay}" Height="50">
                         <Image.ContextFlyout>
                             <MenuFlyout>
                                 <!-- Variante mit Code-Behind: <MenuFlyoutItem 
@@ -32,6 +32,22 @@
                                     Command="{Binding ElementName=page,Path=Model.AddBookAsTodoCommand}" />
                             </MenuFlyout>
                         </Image.ContextFlyout>
+
+                        <!--Gehört zum Image-Tag-->
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState x:Name="middleScreen">
+                                    <!--Wann soll dieser State aktiviert werden?-->
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="300" />
+                                    </VisualState.StateTriggers>
+                                    <!--Was soll passieren, wenn dieser State aktiviert ist?-->
+                                    <VisualState.Setters>
+                                        <Setter Target="image.Height" Value="200" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
                     </Image>
                 </DataTemplate>
             </GridView.ItemTemplate>

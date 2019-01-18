@@ -35,5 +35,13 @@ namespace MTODO.Views
             Model = e.Parameter as TodosViewModel;
             base.OnNavigatedTo(e);
         }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            //if (e.NewSize.Width > 500)
+            //{
+            //    masterdetailview.ItemTemplate = this.Resources["smallTemplate"]
+            //}
+        }
     }
 }

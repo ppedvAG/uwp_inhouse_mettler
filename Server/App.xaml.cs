@@ -1,8 +1,4 @@
-﻿using MTODO.Helper;
-using MTODO.Views;
-using MTODO_Models.Services;
-using MTODO_Models.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,7 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace MTODO
+namespace Server
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
@@ -43,13 +39,6 @@ namespace MTODO
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            PrepareLaunch(e);
-        }
-
-
-        public void PrepareLaunch(LaunchActivatedEventArgs e = null)
-        {
-            GUIServices.SaveService = new FileService();
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -61,7 +50,7 @@ namespace MTODO
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                if (e != null && e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     //TODO: Load state from previously suspended application
                 }
@@ -70,7 +59,7 @@ namespace MTODO
                 Window.Current.Content = rootFrame;
             }
 
-            if (e == null || e.PrelaunchActivated == false)
+            if (e.PrelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
                 {
@@ -82,21 +71,6 @@ namespace MTODO
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
-        }
-
-        protected override void OnActivated(IActivatedEventArgs args)
-        {
-            PrepareLaunch();
-
-            if(args.Kind == ActivationKind.ToastNotification)
-            {
-                 if(args is ToastNotificationActivatedEventArgs toastArgs)
-                {
-                    string toastId = toastArgs.Argument;
-                    GUIServices.Navigation.NavigateTo(new TodosViewModel());
-                }
-            }
-            base.OnActivated(args);
         }
 
         /// <summary>
