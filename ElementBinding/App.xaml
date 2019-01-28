@@ -5,5 +5,8 @@
     xmlns:local="using:ElementBinding">
     <Application.Resources>
         <local:DoubleToColorConverter x:Key="colorConverter" />
+        <Style TargetType="local:Tests">
+            <Setter Property="Background" Value="Yellow" />
+        </Style>
     </Application.Resources>
 </Application>

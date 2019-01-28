@@ -5,23 +5,52 @@
     xmlns:local="using:WetterApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:media="using:Microsoft.Xaml.Interactions.Media"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-
-        <TextBlock Text="{x:Bind Stadt,Mode=OneWay}"  />
-        <StackPanel Grid.Column="1">
-            <TextBlock><Run Text="{x:Bind Temperatur,Mode=OneWay}" />°C</TextBlock>
-            <TextBlock Text="{x:Bind Beschreibung,Mode=OneWay}" />
-        </StackPanel>
-        <!--<Image Source="{x:Bind IconUrl,Mode=OneWay}" Grid.Column="2" HorizontalAlignment="Stretch" 
-               VerticalAlignment="Stretch" Stretch="UniformToFill" />-->
-
+    <Grid x:Name="mainGrid" Padding="10"> 
+        <interactivity:Interaction.Behaviors>
+            <core:EventTriggerBehavior EventName="Loaded">
+                <media:ControlStoryboardAction ControlStoryboardOption="Play">
+                    <media:ControlStoryboardAction.Storyboard>
+                        <Storyboard>
+                            <ColorAnimation  EnableDependentAnimation="True"
+                            Storyboard.TargetName="blueStop"
+                            Storyboard.TargetProperty="Color"
+                            From="Aqua" To="Blue" Duration="0:0:2"
+                            />
+                        </Storyboard>
+                    </media:ControlStoryboardAction.Storyboard>
+                </media:ControlStoryboardAction>
+            </core:EventTriggerBehavior>
+        </interactivity:Interaction.Behaviors>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="Aqua" Offset="0.3" />
+                <GradientStop x:Name="blueStop" Color="Blue"  Offset="0.6" />
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Center" Text="{x:Bind StadtName,Mode=OneWay}" />
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock><Run Text="{x:Bind Temperatur,Mode=OneWay}" />°C</TextBlock>
+                <TextBlock Text="{x:Bind Beschreibung,Mode=OneWay}" />
+            </StackPanel>
+            <Image Source="{Binding IconUrl,Mode=OneWay}" Grid.Column="2" HorizontalAlignment="Stretch" 
+               Height="50"
+               VerticalAlignment="Stretch" Stretch="Uniform" />
+        </Grid>
+        <Grid Background="Red" Visibility="{Binding Error,Converter={StaticResource stringEmpty},ConverterParameter=True}">
+            <TextBlock Text="{x:Bind Error,Mode=OneWay}"  />
+        </Grid>
+        <ProgressRing IsActive="{x:Bind ApiLoading,Mode=OneWay}" Foreground="Yellow" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
     </Grid>
 </UserControl>

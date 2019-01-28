@@ -23,28 +23,50 @@ namespace WetterApp
 {
     public sealed partial class CityWetter : UserControl, INotifyPropertyChanged
     {
-
-        public string Stadt
+        public string StadtName
         {
-            get { return (string)GetValue(StadtProperty); }
+            get { return (string)GetValue(StadtNameProperty); }
+            set { SetValue(StadtNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for StadtName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty StadtNameProperty =
+            DependencyProperty.Register(nameof(StadtName), typeof(string), typeof(CityWetter), new PropertyMetadata(null, StadtNameChanged));
+
+        private static void StadtNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is CityWetter wetter)
+            {
+                wetter.LadeWetter();
+            }
+        }
+
+        public Stadt Stadt
+        {
+            get { return (Stadt)GetValue(StadtProperty); }
             set { SetValue(StadtProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Stadt.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StadtProperty =
-            DependencyProperty.Register("Stadt", typeof(string), typeof(CityWetter), new PropertyMetadata(null, StadtChanged));
+            DependencyProperty.Register("Stadt", typeof(Stadt), typeof(CityWetter), new PropertyMetadata(null, StadtChanged));
 
         private static void StadtChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is CityWetter cityWetter)
+            if (d is CityWetter cityWetter && e.NewValue is Stadt stadt)
             {
-                if (!string.IsNullOrWhiteSpace(e.NewValue.ToString()))
-                {
-                    cityWetter.LadeWetter();
-                }
+                //Stellt ein Binding zwischen der StadtName-Property und der Stadt-Property her.
+                //Alternativ könnte man auch auf das PropertyChanged-Event der Property Stadt lauschen.
+                cityWetter.SetBinding(CityWetter.StadtNameProperty,
+                    new Binding()
+                    {
+                        Source = cityWetter.Stadt,
+                        Mode = BindingMode.OneWay,
+                        Path = new PropertyPath("Name")
+                    }
+                );
             }
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -59,8 +81,21 @@ namespace WetterApp
             }
         }
 
-        private int _temp;
-        public int Temperatur
+        private bool _apiLoading = false;
+
+        public bool ApiLoading
+        {
+            get { return _apiLoading; }
+            set
+            {
+                _apiLoading = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ApiLoading)));
+            }
+        }
+
+
+        private string _temp;
+        public string Temperatur
         {
             get { return _temp; }
             set
@@ -96,22 +131,29 @@ namespace WetterApp
         {
             try
             {
+                ApiLoading = true;
                 HttpClient client = new HttpClient();
-                string jsonResult = await client.GetStringAsync($"https://api.openweathermap.org/data/2.5/weather?q={Stadt}&units=metric&appid=84d84c7b399d88e7f4e4688facc2498e");
+                string jsonResult = await client.GetStringAsync($"https://api.openweathermap.org/data/2.5/weather?q={StadtName}&units=metric&appid=84d84c7b399d88e7f4e4688facc2498e");
                 var apiresult = JsonConvert.DeserializeObject<WetterAPIResult>(jsonResult);
-                Temperatur = apiresult.main.temp_min;
+                Temperatur = apiresult.main.temp_min.ToString();
                 IconUrl = apiresult.weather[0].IconUrl;
                 Beschreibung = apiresult.weather[0].description;
+                Error = string.Empty;
             }
             catch (Exception)
             {
                 Error = "Das Wetter für diese Stadt konnte nicht ermittelt werden!";
+            }
+            finally
+            {
+                ApiLoading = false;
             }
         }
 
         public CityWetter()
         {
             this.InitializeComponent();
+            mainGrid.DataContext = this;
         }
     }
 }

@@ -6,30 +6,41 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    x:Name="page1"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
         <ListBox ItemsSource="{x:Bind Staedte,Mode=OneWay}">
             <ListBox.ItemTemplate>
-                <DataTemplate x:DataType="x:String">
+                <DataTemplate x:DataType="local:Stadt">
                     <Border BorderBrush="Black" BorderThickness="2">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox MinWidth="100" Text="{x:Bind Mode=TwoWay}" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                            <TextBox MinWidth="100" Margin="0 0 10 0" Text="{x:Bind Name,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" />
                             <Button  Click="Delete_Click">Löschen</Button>
                         </StackPanel>
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Orientation="Horizontal" Margin="20">
-            <TextBox Text="{x:Bind NeueStadt,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="200" />
-            <Button Margin="10 0 0 0" Click="Button_Click">Neu</Button>
-        </StackPanel>
-        <ListBox ItemsSource="{x:Bind Staedte,Mode=OneWay}">
+        <ListBox Grid.Column="1" ItemsSource="{x:Bind Staedte,Mode=OneWay}" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
-                <DataTemplate x:DataType="x:String">
-                    <local:CityWetter Stadt="{x:Bind}" />
+                <DataTemplate x:DataType="local:Stadt">
+                    <local:CityWetter Stadt="{x:Bind Mode=OneWay}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-    </StackPanel>
+        <Viewbox Grid.Row="1" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox Text="{x:Bind NeueStadt,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="200" />
+            <Button Margin="10 0 0 0" Click="Button_Click">Neu</Button>
+        </StackPanel>
+        </Viewbox>
+    </Grid>
 </Page>
