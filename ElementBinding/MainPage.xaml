@@ -19,9 +19,6 @@
     </Page.Background>
 
     <StackPanel>
-      
-        
-        
         <!--Binding Source-->
         <Slider x:Name="slider" Minimum="0" Maximum="50" StepFrequency="1" Value="40" />
         <!--Binding Target-->

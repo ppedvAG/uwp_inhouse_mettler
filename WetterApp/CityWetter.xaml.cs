@@ -134,13 +134,14 @@ namespace WetterApp
                 ApiLoading = true;
                 HttpClient client = new HttpClient();
                 string jsonResult = await client.GetStringAsync($"https://api.openweathermap.org/data/2.5/weather?q={StadtName}&units=metric&appid=84d84c7b399d88e7f4e4688facc2498e");
+                await Task.Delay(1000);
                 var apiresult = JsonConvert.DeserializeObject<WetterAPIResult>(jsonResult);
-                Temperatur = apiresult.main.temp_min.ToString();
+                Temperatur = apiresult.main.temp.ToString();
                 IconUrl = apiresult.weather[0].IconUrl;
                 Beschreibung = apiresult.weather[0].description;
                 Error = string.Empty;
             }
-            catch (Exception)
+            catch (Exception exp)
             {
                 Error = "Das Wetter für diese Stadt konnte nicht ermittelt werden!";
             }

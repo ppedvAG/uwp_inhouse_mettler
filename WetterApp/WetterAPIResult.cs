@@ -14,8 +14,7 @@ namespace WetterApp
 
     public class Main
     {
-        public int temp_min { get; set; }
-        public int temp_max { get; set; }
+        public double temp { get; set; }
     }
 
     public class Weather
