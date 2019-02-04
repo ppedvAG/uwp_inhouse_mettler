@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -20,19 +21,35 @@ namespace ElementBinding
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage : Page, INotifyPropertyChanged
     {
-        string def { get; set; } = "Blau";
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        private string _label = "Blau";
+        string Label
+        {
+            get => _label;
+            set
+            {
+                _label = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Label)));
+            }
+        }
 
         public MainPage()
         {
             this.InitializeComponent();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            def = "Grün";
+            Label = "Grün";
+        }
+
+        private void Button_Update_Click(object sender, RoutedEventArgs e)
+        {
+            tbExplicit.GetBindingExpression(TextBox.TextProperty).UpdateSource();
         }
     }
 }
