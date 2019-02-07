@@ -7,11 +7,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <local:PageTypes x:Key="pageTypeBooks">Books</local:PageTypes>
+        <local:PageTypes x:Key="pageTypeTodos">Todos</local:PageTypes>
+    </Page.Resources>
 
-    <NavigationView>
+    <NavigationView x:Name="navigationView" SelectionChanged="NavigationView_SelectionChanged">
         <NavigationView.MenuItems>
-            <NavigationViewItem Tapped="NavigationViewItem_Tapped" Icon="List" Content="ToDos" Tag="Todo" />
-            <NavigationViewItem Tapped="NavigationViewItem_Tapped" Icon="Add" Content="Bücher" Tag="Book" />
+            <NavigationViewItem Icon="List" Content="ToDos" Tag="{StaticResource pageTypeTodos}" />
+            <NavigationViewItem Icon="Add" Content="Bücher" Tag="{StaticResource pageTypeBooks}" />
         </NavigationView.MenuItems>
         <Frame x:Name="rootFrame" />
     </NavigationView>

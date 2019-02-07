@@ -26,6 +26,7 @@
 
     <controls:MasterDetailsView SelectedItem="{x:Bind Model.CurrentTodo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                 x:Name="masterdetailview"
+                                CompactModeThresholdWidth="550"
                                 ItemsSource="{x:Bind Model.TodoListe,Mode=OneWay}">
         <controls:MasterDetailsView.DetailsTemplate>
             <DataTemplate x:DataType="models:Todo">
@@ -33,9 +34,11 @@
                 <StackPanel>
                     <TextBox x:Name="tbTitle" Text="{x:Bind Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                     <DatePicker Date="{x:Bind DueDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource dateConverter}}" />
-                    <!--TODO: Bild-->
                     <interactivity:Interaction.Behaviors>
                         <core:DataTriggerBehavior Binding="{x:Bind Title,Mode=OneWay,Converter={StaticResource stringEmptyConverter}}" Value="True">
+                            <core:ChangePropertyAction TargetObject="{Binding ElementName=tbTitle}" PropertyName="Background" Value="Red"  />
+                        </core:DataTriggerBehavior>
+                        <core:DataTriggerBehavior Binding="{x:Bind Title,Mode=OneWay,Converter={StaticResource stringEmptyConverter}}" Value="False">
                             <core:ChangePropertyAction TargetObject="{Binding ElementName=tbTitle}" PropertyName="Background" Value="Green"  />
                         </core:DataTriggerBehavior>
                     </interactivity:Interaction.Behaviors>

@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:MTODO_Models.Models"
+    xmlns:usercontrols="using:MTODO.UserControls"
     mc:Ignorable="d"
     x:Name="page"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -14,41 +15,21 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        
+
         <StackPanel Orientation="Horizontal">
-            <TextBox Background="Blue" Text="{x:Bind Model.SearchTerm,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" />
+            <TextBox Background="Blue" Text="{x:Bind Model.SearchTerm,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
             <Button Command="{x:Bind Model.SearchBookCommand,Mode=OneWay}">Suche</Button>
         </StackPanel>
-        <GridView ItemsSource="{x:Bind Model.Books,Mode=OneWay}" Grid.Row="1">
+        <GridView x:Name="gridView" ItemsSource="{x:Bind Model.Books,Mode=OneWay}" Grid.Row="1">
             <GridView.ItemTemplate>
-                <DataTemplate   x:DataType="models:Book">
-                    <Image x:Name="image" Source="{x:Bind volumeInfo.imageLinks.smallThumbnail,Mode=OneWay}" Height="50">
-                        <Image.ContextFlyout>
-                            <MenuFlyout>
-                                <!-- Variante mit Code-Behind: <MenuFlyoutItem 
-                                    Click="MenuFlyoutItem_Click" />-->
-                                <MenuFlyoutItem 
-                                    CommandParameter="{x:Bind}"
-                                    Command="{Binding ElementName=page,Path=Model.AddBookAsTodoCommand}" />
-                            </MenuFlyout>
-                        </Image.ContextFlyout>
-
-                        <!--Gehört zum Image-Tag-->
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup>
-                                <VisualState x:Name="middleScreen">
-                                    <!--Wann soll dieser State aktiviert werden?-->
-                                    <VisualState.StateTriggers>
-                                        <AdaptiveTrigger MinWindowWidth="300" />
-                                    </VisualState.StateTriggers>
-                                    <!--Was soll passieren, wenn dieser State aktiviert ist?-->
-                                    <VisualState.Setters>
-                                        <Setter Target="image.Height" Value="200" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                    </Image>
+                <DataTemplate x:DataType="models:Book">
+                    <!--Die VisualStateTriggers funktionieren innerhalb von DataTemplates nicht,
+                    es sei denn man kapselt das Layout in einem UserControl-->
+                    <usercontrols:BookPresenter 
+                            ContextMenuText="Als ToDo hinzufügen"
+                            ImageURL="{x:Bind volumeInfo.imageLinks.smallThumbnail,Mode=OneWay}"
+                            Command="{Binding ElementName=page,Path=Model.AddBookAsTodoCommand}"
+                            CommandParameter="{x:Bind}" />
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>

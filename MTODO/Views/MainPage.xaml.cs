@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -20,6 +21,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace MTODO.Views
 {
+
+    public enum PageTypes { Todos, Books };
+
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -33,17 +37,18 @@ namespace MTODO.Views
             GUIServices.Navigation = new NavigationService(rootFrame);
         }
 
-        private void NavigationViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            if (sender is NavigationViewItem item)
+            if (args.SelectedItem is NavigationViewItem item)
             {
-                if (item.Tag.ToString() == "Book")
+                switch ((PageTypes)item.Tag)
                 {
-                    Model.GoToBooksViewCommand.Execute(null);
-                }
-                else if (item.Tag.ToString() == "Todo")
-                {
-                    Model.GoToTodosViewCommand.Execute(null);
+                    case PageTypes.Todos:
+                        Model.GoToTodosViewCommand.Execute(null);
+                        break;
+                    case PageTypes.Books:
+                        Model.GoToBooksViewCommand.Execute(null);
+                        break;
                 }
             }
         }
